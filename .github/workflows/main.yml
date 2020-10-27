@@ -1,0 +1,31 @@
+name: Deploy to yoshiko.net
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/yoshikouki.net.pem
+          chmod 400 ~/.ssh/yoshikouki.net.pem
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/yoshikouki.net.pem
+      - name: Deploy with "rsync" command
+        run: |
+          rsync \
+          -avL \
+          --progress \
+          --exclude ".git/" \
+          --rsync-path "sudo rsync" \
+          -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+          ./public\
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
