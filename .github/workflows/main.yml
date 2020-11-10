@@ -22,6 +22,5 @@ jobs:
           OPTIONS: -avL --progress --exclude ".git/" --rsync-path "sudo rsync"
           SSH_KEY: -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
           SYNC_SOURCE: ./public/
-          SYNC_DESTINATION: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
         run: |
-          rsync $OPTIONS $SSH_KEY $SYNC_SOURCE $SYNC_DESTINATION
+          rsync $OPTIONS $SSH_KEY $SYNC_SOURCE ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
