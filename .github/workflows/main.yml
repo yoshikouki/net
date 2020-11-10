@@ -18,7 +18,8 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/yoshikouki.net.pem
       - name: Deploy with "rsync" command
-        env:
-          SSH_KEY: -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         run: |
-          rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" $SSH_KEY ./public/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
+          rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" \
+          -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+          ./public/ \
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
