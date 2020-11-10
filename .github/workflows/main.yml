@@ -19,8 +19,6 @@ jobs:
           ssh-add ~/.ssh/yoshikouki.net.pem
       - name: Deploy with "rsync" command
         env:
-          OPTIONS: -avL --progress --exclude ".git/" --rsync-path "sudo rsync"
           SSH_KEY: -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-          SYNC_SOURCE: ./public/
         run: |
-          rsync $OPTIONS $SSH_KEY $SYNC_SOURCE ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
+          rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" $SSH_KEY ./public/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
