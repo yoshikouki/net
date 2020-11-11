@@ -13,7 +13,7 @@ jobs:
           node-version: '12.x'
       - run: npm install
       - run: npm build
-  deoloy:
+  deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -32,8 +32,16 @@ jobs:
           -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
           ./public/ \
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/
-      - name: Use Node.js 12.x in AWS
+  start:
+    if: github.ref == 'refs/heads/main'
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build and Start Next.js
         run: |
+          eval "$(ssh-agent -s)" && ssh-add ~/.ssh/yoshikouki.net.pem
           ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
           'cd /var/www/ \
           && npm install \
