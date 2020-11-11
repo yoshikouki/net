@@ -22,4 +22,4 @@ jobs:
           rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" \
           -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
           ./public/ \
-          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/usr/share/nginx/html/
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/
