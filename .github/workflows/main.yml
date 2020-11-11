@@ -35,7 +35,4 @@ jobs:
       - name: Use Node.js 12.x in AWS
         run: |
         ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-        'cd /var/www/ \
-        && npm install \
-        && npm run build \
-        && npm run start'
+        'cd /var/www/ && npm install && npm run build && npm run start'
