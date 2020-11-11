@@ -35,7 +35,8 @@ jobs:
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/
       - name: Build and Start Next.js
         run: |
-          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
+          ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
           'cd /var/www/ \
           && npm install \
           && npm run build \
