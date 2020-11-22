@@ -23,22 +23,25 @@ jobs:
       - name: Generate SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/yoshikouki.net.pem
-          chmod 400 ~/.ssh/yoshikouki.net.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $SSH_KEY_PATH
+          chmod 400 $SSH_KEY_PATH
           eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/yoshikouki.net.pem
+          ssh-add $SSH_KEY_PATH
       - name: Deploy with "rsync" command
         run: |
           rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" \
-          -e "ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+          -e "ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
           ./ \
-          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:$APP_PATH
       - name: Build and Start Next.js
         run: |
-          ssh -i ~/.ssh/yoshikouki.net.pem -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+          ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-          'cd /var/www/ \
+          'cd $APP_PATH \
           && sudo npm install \
           && sudo npm install pm2 -g\
           && sudo npm run build \
           && pm2 restart app.json --env production'
+    env:
+      APP_PATH: /var/www/
+      SSH_KEY_PATH: ~/.ssh/yoshikouki.net.pem
