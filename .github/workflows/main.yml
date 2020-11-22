@@ -13,6 +13,16 @@ jobs:
           node-version: '12.x'
       - run: npm install
       - run: npm build
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
