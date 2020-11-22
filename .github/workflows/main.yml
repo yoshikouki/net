@@ -31,6 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate SSH key
+        working-directory: ~/
         run: |
           mkdir -p ~/.ssh
           touch $SSH_KEY_PATH
