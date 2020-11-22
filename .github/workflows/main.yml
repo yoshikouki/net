@@ -8,15 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cache multiple paths
-        uses: actions/cache@v2
-        with:
-          path: |
-            /Users/deploy/.npm
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -31,7 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate SSH key
-        working-directory: /Users/deploy/
         run: |
           mkdir -p /Users/deploy/.ssh
           touch $SSH_KEY_PATH
