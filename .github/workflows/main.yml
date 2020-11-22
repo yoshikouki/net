@@ -12,7 +12,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.npm
+            /Users/deploy/.npm
             **/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
@@ -31,9 +31,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate SSH key
-        working-directory: ~/
+        working-directory: /Users/deploy/
         run: |
-          mkdir -p ~/.ssh
+          mkdir -p /Users/deploy/.ssh
           touch $SSH_KEY_PATH
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $SSH_KEY_PATH
           chmod 400 $SSH_KEY_PATH
@@ -56,4 +56,4 @@ jobs:
           && pm2 restart app.json --env production'
     env:
       APP_PATH: /var/www/
-      SSH_KEY_PATH: ~/.ssh/yoshikouki.net.pem
+      SSH_KEY_PATH: /Users/deploy/.ssh/yoshikouki.net.pem
