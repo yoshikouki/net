@@ -33,6 +33,7 @@ jobs:
       - name: Generate SSH key
         run: |
           mkdir -p ~/.ssh
+          touch $SSH_KEY_PATH
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $SSH_KEY_PATH
           chmod 400 $SSH_KEY_PATH
           eval "$(ssh-agent -s)"
