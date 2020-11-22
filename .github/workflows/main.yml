@@ -3,6 +3,10 @@ name: Deploy to yoshiko.net
 on:
   push:
 
+env:
+  ssh_key_path: ~/.ssh/yoshikouki.net.pem
+  app_path: /var/www/
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,26 +28,22 @@ jobs:
       - name: Generate SSH key
         run: |
           mkdir -p ~/.ssh
-          touch $SSH_KEY_PATH
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $SSH_KEY_PATH
-          chmod 400 $SSH_KEY_PATH
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ${{ env.ssh_key_path }}
+          chmod 400 ${{ env.ssh_key_path }}
           eval "$(ssh-agent -s)"
-          ssh-add $SSH_KEY_PATH
+          ssh-add ${{ env.ssh_key_path }}
       - name: Deploy with "rsync" command
         run: |
           rsync -avL --progress --exclude ".git/" --rsync-path "sudo rsync" \
-          -e "ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+          -e "ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
           ./ \
-          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:$APP_PATH
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ env.app_path }}
       - name: Build and Start Next.js
         run: |
-          ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+          ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-          'cd $APP_PATH \
+          'cd ${{ env.app_path }} \
           && sudo npm install \
           && sudo npm install pm2 -g\
           && sudo npm run build \
           && pm2 restart app.json --env production'
-    env:
-      APP_PATH: /var/www/
-      SSH_KEY_PATH: ~/.ssh/yoshikouki.net.pem
