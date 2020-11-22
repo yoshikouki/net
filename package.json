@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pm2:start": "npm"
+    "pm2:start": "pm2 start app.json --env production",
+    "pm2:kill": "pm2 kill",
+    "pm2:restart": "pm2 restart app.json --env production"
   },
   "dependencies": {
     "next": "10.0.1",
