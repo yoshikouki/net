@@ -39,5 +39,6 @@ jobs:
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
           'cd /var/www/ \
           && sudo npm install \
+          && sudo npm install pm2 -g\
           && sudo npm run build \
           && pm2 restart app.json --env production'
