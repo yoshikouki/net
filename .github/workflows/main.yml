@@ -40,4 +40,4 @@ jobs:
           'cd /var/www/ \
           && sudo npm install \
           && sudo npm run build \
-          && sudo npm run start'
+          && pm2 restart app.json --env production'
