@@ -11,12 +11,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://yoshikouki.net">Yoshikouki.net!!1</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          Updated at
+          <code className={styles.code}>
+            2020-11-22 11:41:00
+          </code>
         </p>
 
         <div className={styles.grid}>
