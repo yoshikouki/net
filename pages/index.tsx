@@ -18,7 +18,7 @@ export default function Home() {
         <p className={styles.description}>
           Updated at
           <code className={styles.code}>
-            2020-11-22 11:41:00
+            2020-11-25 21:45:01
           </code>
         </p>
 
