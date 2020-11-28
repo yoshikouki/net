@@ -38,7 +38,7 @@ jobs:
       - name: Generate SSH key for AWS
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ${{ env.ssh_key_path }}
+          echo "${{ secrets.ACCESS_KEY_TO_AWS }}" > ${{ env.ssh_key_path }}
           chmod 400 ${{ env.ssh_key_path }}
           eval "$(ssh-agent -s)"
           ssh-add ${{ env.ssh_key_path }}
@@ -47,7 +47,7 @@ jobs:
           ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
           'cd ~/.ssh
-          && echo "${{ secrets.GITHUB_PRIVATE_KEY }}" > ${{ env.github_key_path }}
+          && echo "${{ secrets.ACCESS_KEY_TO_GITHUB }}" > ${{ env.github_key_path }}
           && chmod 400 ${{ env.github_key_path }}'
       - name: Deploy and Build with PM2
         run: |
