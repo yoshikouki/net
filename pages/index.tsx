@@ -18,8 +18,12 @@ export default function Home() {
         <p className={styles.description}>
           Updated at
           <code className={styles.code}>
-            2020-11-22 11:41:00
+            2020-11-28 15:20:30
           </code>
+        </p>
+
+        <p className={styles.description}>
+          GitHub Actions は正常に稼働して自動でプロイされました!!1
         </p>
 
         <div className={styles.grid}>
