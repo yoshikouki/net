@@ -50,5 +50,5 @@ jobs:
           && sudo chmod 400 ${{ env.github_key_path }}'
       - name: Deploy and Build with PM2
         run: |
-          which pm2 > /dev/null || (echo "Install PM2"; npm install -g pm2)
+          which pm2 > /dev/null || (echo "Install PM2"; sudo npm install -g pm2)
           pm2 deploy ecosystem.config.js production
