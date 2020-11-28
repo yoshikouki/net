@@ -19,9 +19,10 @@ module.exports = {
     production : {
       user : 'ec2-user',
       host : 'yoshikouki.net',
+      key  : '~/.ssh/yoshikouki.net.pem',
       ssh_options : ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       ref  : 'origin/main',
-      repo : 'https://github.com/yoshikouki/yoshikouki.net.git',
+      repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
       path : '/var/www/',
       'pre-setup' : 'which git > /dev/null || sudo yum install git',
       'post-deploy' : 'npm install && npm install -g pm2 && pm2 startOrReload ecosystem.config.js --env production',
