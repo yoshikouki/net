@@ -13,6 +13,7 @@ module.exports = {
       user : 'ec2-user',
       host : 'yoshikouki.net',
       ssh_options : ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
+      key  : '~/.ssh/yoshikouki.net.pem',
       ref  : 'origin/main',
       repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
       path : '/home/ec2-user/yoshikouki.net',
