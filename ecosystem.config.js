@@ -17,7 +17,9 @@ module.exports = {
       repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
       path : '/home/ec2-user/yoshikouki.net',
       'pre-setup' : 'which git > /dev/null || sudo yum install git',
-      'post-deploy' : 'npm install && (which pm2 > /dev/null || npm install -g pm2) && pm2 startOrReload ecosystem.config.js --env production',
+      'post-deploy' : 'npm install > /dev/null' +
+        '&& (which pm2 > /dev/null || npm install -g pm2) ' +
+        '&& pm2 startOrReload ecosystem.config.js --env production',
       env : {
         "NODE_ENV": "production"
       }
