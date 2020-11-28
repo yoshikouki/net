@@ -6,6 +6,13 @@ module.exports = {
     env_production : {
       "NODE_ENV" : "production"
     }
+  },{
+    name: "web-dev",
+    script: 'npm run dev',
+    watch: '.',
+    env : {
+      "NODE_ENV" : "development"
+    }
   }],
 
   deploy : {
