@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pm2:start": "pm2 start app.json --env production",
+    "pm2:start": "pm2 startOrReload ecosystem.config.js --env production",
     "pm2:kill": "pm2 kill",
-    "pm2:restart": "pm2 restart app.json --env production"
+    "pm2:restart": "pm2 restart ecosystem.config.js --env production"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.8.1",
