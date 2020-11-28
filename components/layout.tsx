@@ -4,7 +4,6 @@ import styles from './layout.module.scss'
 import utilStyles from '../styles/utils.module.scss'
 import Link from 'next/link'
 
-const name = 'yoshikouki'
 export const siteTitle = 'yoshikouki.net'
 
 export default function Layout({
@@ -31,7 +30,7 @@ export default function Layout({
           <>
             <h2 className={utilStyles.headingLg}>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className={utilStyles.colorInherit}>{siteTitle}</a>
               </Link>
             </h2>
           </>
