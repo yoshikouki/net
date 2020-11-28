@@ -46,9 +46,9 @@ jobs:
           ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
           ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
           'find ${{ env.github_key_path }} > /dev/null \
-          || cd ~/.ssh \
+          || (cd ~/.ssh \
           && sudo echo "${{ secrets.ACCESS_KEY_TO_GITHUB }}" > ${{ env.github_key_path }} \
-          && sudo chmod 400 ${{ env.github_key_path }}'
+          && sudo chmod 400 ${{ env.github_key_path }})'
       - name: Deploy and Build with PM2
         run: |
           which pm2 > /dev/null || (echo "Install PM2"; sudo npm install -g pm2)
