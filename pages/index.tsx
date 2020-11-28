@@ -13,7 +13,7 @@ export default function Home() {
 
       <main className={utilStyles.main}>
         <h1 className={utilStyles.title}>
-          <a href="https://yoshikouki.net">Yoshikouki.net</a>!!1
+          <a href="/">Yoshikouki.net</a>!!1
         </h1>
 
         <p className={utilStyles.description}>

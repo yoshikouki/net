@@ -1,12 +1,11 @@
 .container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 36rem;
   padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  margin: 0 auto 6rem;
 }
 
 .header {
@@ -31,5 +30,5 @@
 }
 
 .backToHome {
-  margin: 3rem 0 0;
+  margin: 3rem 0 3rem;
 }

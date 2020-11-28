@@ -26,12 +26,8 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
         <title/>
       </Head>
-      <header className={styles.header}>
-        {!home ? (
-          <>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
+      {!home && (
+        <header className={styles.header}>
           <>
             <h2 className={utilStyles.headingLg}>
               <Link href="/">
@@ -39,8 +35,8 @@ export default function Layout({
               </Link>
             </h2>
           </>
-        )}
-      </header>
+        </header>
+      )}
 
       <main>{children}</main>
 
