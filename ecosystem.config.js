@@ -6,20 +6,12 @@ module.exports = {
     env_production : {
       "NODE_ENV" : "production"
     }
-  }, {
-    name: "web-development",
-    script: 'npm run dev',
-    watch: '.',
-    env : {
-      "NODE_ENV" : "development"
-    }
   }],
 
   deploy : {
     production : {
       user : 'ec2-user',
       host : 'yoshikouki.net',
-      key  : '~/.ssh/yoshikouki.net.pem',
       ssh_options : ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       ref  : 'origin/build-deployment-with-pm2',
       repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
