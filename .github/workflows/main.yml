@@ -6,7 +6,6 @@ on:
 env:
   ssh_key_path: ~/.ssh/yoshikouki.net.pem
   github_key_path: ~/.ssh/id_rsa
-  app_path: /var/www/
 
 jobs:
   build:
@@ -35,6 +34,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Generate SSH key for AWS
         run: |
           mkdir -p ~/.ssh
@@ -51,4 +59,5 @@ jobs:
           && chmod 400 ${{ env.github_key_path }}'
       - name: Deploy and Build with PM2
         run: |
+          which pm2 > /dev/null || (echo "Install PM2"; npm install -g pm2)
           pm2 deploy ecosystem.config.js production
