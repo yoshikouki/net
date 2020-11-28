@@ -5,6 +5,7 @@ on:
 
 env:
   ssh_key_path: ~/.ssh/yoshikouki.net.pem
+  github_key_path: ~/.ssh/id_rsa
   app_path: /var/www/
 
 jobs:
@@ -34,13 +35,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Generate SSH key
+      - name: Generate SSH key for AWS
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ${{ env.ssh_key_path }}
           chmod 400 ${{ env.ssh_key_path }}
           eval "$(ssh-agent -s)"
           ssh-add ${{ env.ssh_key_path }}
+      - name: Generate SSH key for GitHub
+        run: |
+          ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
+          'cd ~/.ssh
+          && echo "${{ secrets.GITHUB_PRIVATE_KEY }}" > ${{ env.github_key_path }}
+          && chmod 400 ${{ env.github_key_path }}'
       - name: Deploy with "rsync" command
         run: |
           rsync -avL --delete --exclude ".git/" --rsync-path "sudo rsync" \
