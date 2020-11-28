@@ -13,7 +13,7 @@ module.exports = {
       user : 'ec2-user',
       host : 'yoshikouki.net',
       ssh_options : ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
-      ref  : 'origin/build-deployment-with-pm2',
+      ref  : 'origin/main',
       repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
       path : '/home/ec2-user/yoshikouki.net',
       'pre-setup' : 'which git > /dev/null || sudo yum install git',
