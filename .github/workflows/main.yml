@@ -49,18 +49,6 @@ jobs:
           'cd ~/.ssh
           && echo "${{ secrets.GITHUB_PRIVATE_KEY }}" > ${{ env.github_key_path }}
           && chmod 400 ${{ env.github_key_path }}'
-      - name: Deploy with "rsync" command
+      - name: Deploy and Build with PM2
         run: |
-          rsync -avL --delete --exclude ".git/" --rsync-path "sudo rsync" \
-          -e "ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-          ./ \
-          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ env.app_path }}
-      - name: Build and Start Next.js
-        run: |
-          ssh -i ${{ env.ssh_key_path }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-          ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-          'cd ${{ env.app_path }} \
-          && sudo npm install \
-          && sudo npm install pm2 -g\
-          && sudo npm run build \
-          && pm2 restart app.json --env production'
+          pm2 deploy ecosystem.config.js production
