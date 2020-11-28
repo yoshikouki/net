@@ -23,7 +23,7 @@ module.exports = {
       ssh_options : ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       ref  : 'origin/main',
       repo : 'git@github.com:yoshikouki/yoshikouki.net.git',
-      path : '/var/www/',
+      path : '~/yoshikouki.net',
       'pre-setup' : 'which git > /dev/null || sudo yum install git',
       'post-deploy' : 'npm install && npm install -g pm2 && pm2 startOrReload ecosystem.config.js --env production',
       env : {
