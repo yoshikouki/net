@@ -6,13 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "pm2:start": "pm2 start app.json --env production",
+    "pm2:start": "pm2 startOrReload ecosystem.config.js --env production",
     "pm2:kill": "pm2 kill",
-    "pm2:restart": "pm2 restart app.json --env production"
+    "pm2:restart": "pm2 restart ecosystem.config.js --env production"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "next": "10.0.1",
     "pm2": "^4.5.0",
+    "prettier": "^2.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "sass": "^1.29.0"

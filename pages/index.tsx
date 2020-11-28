@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
+import React from "react";
 
 export default function Home() {
   return (
@@ -16,6 +17,10 @@ export default function Home() {
 
         <p className={styles.description}>
           実験場
+        </p>
+
+        <p className={styles.description}>
+          GitHub Actions は正常に稼働して自動でプロイされました!!1
         </p>
 
         <div className={styles.grid}>
