@@ -36,3 +36,7 @@ export function callApi() {
   }
   return res
 }
+
+export function returnTest() {
+  return "test"
+}
