@@ -1,4 +1,4 @@
-import { zipCloudJson, callApi, returnTest } from "../../../lib/dev/api"
+import { returnTest } from "../../../lib/dev/api"
 
 test('最初のテスト', () => {
   let res: string;
