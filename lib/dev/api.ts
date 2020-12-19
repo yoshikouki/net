@@ -18,7 +18,7 @@ export interface zipCloudJson {
 }
 
 export function callApi() {
-  res = {
+  let res: zipCloudJson = {
     "message": null,
     "results": [
       {
