@@ -1,5 +1,5 @@
 import Axios, {AxiosResponse} from 'axios'
-import { ZipCloudJson } from './dev-api.interface'
+import { ZipCloudJson } from './api.interface'
 
 export default class DevApi {
   public getAddressData(zipcode: number) {

@@ -1,4 +1,4 @@
-import DevApi from "./dev-api";
+import DevApi from "./api";
 
 describe("開発中 API クラス", () => {
   test('郵便番号で住所を取得する', async () => {
