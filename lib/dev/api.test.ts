@@ -1,4 +1,4 @@
-import Api from "../../../lib/dev/api";
+import Api from "./api";
 
 describe("開発中の API クラス", () => {
   test('郵便番号で住所を取得する', async () => {
