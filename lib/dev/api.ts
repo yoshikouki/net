@@ -1,3 +1,5 @@
+import * as axios from 'axios'
+
 export interface zipCloudJson {
   message: null,
   results: [
@@ -16,23 +18,15 @@ export interface zipCloudJson {
 }
 
 export function callApi() {
-  let res: zipCloudJson = {
-    "message": null,
-    "results": [
-      {
-        "address1": "鹿児島県",
-        "address2": "鹿児島市",
-        "address3": "宇宿",
-        "kana1": "ｶｺﾞｼﾏｹﾝ",
-        "kana2": "ｶｺﾞｼﾏｼ",
-        "kana3": "ｳｽｷ",
-        "prefcode": "46",
-        "zipcode": "8900073"
-      }
-    ],
-    "status": 200
-  }
-  return res
+  let url = 'http://zipcloud.ibsnet.co.jp/api/search?zipcode=8900073'
+  return axios.default.get(url)
+    .then((res: axios.AxiosResponse) => {
+      return res.data
+    })
+    .catch(() => {
+      console.log("[ERROR] Axios get")
+      return false
+    })
 }
 
 export function returnTest() {
