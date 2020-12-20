@@ -17,11 +17,13 @@ export interface zipCloudJson {
   status: number
 }
 
-export function callApi() {
-  let url = 'http://zipcloud.ibsnet.co.jp/api/search?zipcode=8900073'
-  return axios.default.get(url)
+export function callApi(zipcode: number) {
+  let url = 'http://zipcloud.ibsnet.co.jp/api/search'
+  return axios.default
+    .get(url, { params : { zipcode : zipcode } })
     .then((res: axios.AxiosResponse) => {
-      return res.data
+      const json: zipCloudJson = res.data
+      return json
     })
     .catch(() => {
       console.log("[ERROR] Axios get")
