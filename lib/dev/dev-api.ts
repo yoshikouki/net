@@ -1,7 +1,7 @@
 import Axios, {AxiosResponse} from 'axios'
-import { ZipCloudJson } from './api.interface'
+import { ZipCloudJson } from './dev-api.interface'
 
-export default class Api {
+export default class DevApi {
   public getAddressData(zipcode: number) {
     let url = 'http://zipcloud.ibsnet.co.jp/api/search'
     return Axios.get(url, { params : { zipcode : zipcode } })
