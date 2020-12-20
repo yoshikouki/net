@@ -1,4 +1,4 @@
-export interface zipCloudJson {
+export interface ZipCloudJson {
   message: null,
   results: [
     {
