@@ -38,7 +38,7 @@ export default function Labo({ addressData }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let api = new DevApi()
+  const api = new DevApi()
   const addressData: ZipCloudJson = await api.getAddressData(8900073)
 
   return {
