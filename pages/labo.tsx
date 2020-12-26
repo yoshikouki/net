@@ -5,7 +5,11 @@ import Layout from "../components/layout";
 import DevApi, {ZipCloudJson} from "../lib/dev/api";
 import {GetStaticProps} from "next";
 
-export default function Labo({addressData}) {
+interface Props {
+  addressData: ZipCloudJson
+}
+
+export default function Labo({ addressData }: Props) {
   const result = addressData.results[0]
   const address = result.address1 + result.address2 + result.address3
 
