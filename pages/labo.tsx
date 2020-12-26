@@ -2,11 +2,12 @@ import React from "react";
 import Head from 'next/head'
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
-import DevApi from "../lib/dev/api";
+import DevApi, {ZipCloudJson} from "../lib/dev/api";
+import {GetStaticProps} from "next";
 
 export default function Labo({addressData}) {
   const result = addressData.results[0]
-  let address = result.address1 + result.address2 + result.address3
+  const address = result.address1 + result.address2 + result.address3
 
   return (
     <Layout>
@@ -34,7 +35,7 @@ export default function Labo({addressData}) {
 
 export const getStaticProps: GetStaticProps = async () => {
   let api = new DevApi()
-  const addressData = await api.getAddressData(8900073)
+  const addressData: ZipCloudJson = await api.getAddressData(8900073)
 
   return {
     props: {

@@ -1,5 +1,22 @@
 import Axios, {AxiosResponse} from 'axios'
 
+export interface ZipCloudJson {
+  message: null,
+  results: [
+    {
+      address1: string,
+      address2: string,
+      address3: string,
+      kana1: string,
+      kana2: string,
+      kana3: string,
+      prefcode: string,
+      zipcode: string
+    }
+  ],
+  status: number
+}
+
 export default class DevApi {
   public getNotePosts() {
     const url = "https://note.com/api/v2/creators/yoshikouki/contents"
@@ -8,7 +25,7 @@ export default class DevApi {
   }
 
   public getAddressData(zipcode: number) {
-    const url = 'http://zipcloud.ibsnet.co.jp/api/search'
+    const url = 'https://zipcloud.ibsnet.co.jp/api/search'
     const params = { zipcode : zipcode }
     return this.requestGet(url, params)
   }
