@@ -4,6 +4,7 @@ import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
 import DevApi, {ZipCloudJson} from "../lib/dev/api";
 import {GetStaticProps} from "next";
+import {Table, TableBody, TableCell, TableContainer, TableHead} from "@material-ui/core";
 
 interface Props {
   addressData: ZipCloudJson
@@ -21,17 +22,26 @@ export default function Labo({ addressData }: Props) {
 
       <main className={utilStyles.main}>
         <h1>ラボ</h1>
-        <ul>
-          <li>
-            {addressData.results[0].zipcode}
-          </li>
-          <li>
-            {address}
-          </li>
-          <li>
-            {addressData.status}
-          </li>
-        </ul>
+        <TableContainer>
+          <Table size="medium" aria-label="A address Table">
+            <TableHead>
+              <TableCell>郵便番号</TableCell>
+              <TableCell>住所</TableCell>
+              <TableCell>レスポンスステータス</TableCell>
+            </TableHead>
+            <TableBody>
+              <TableCell>
+                {addressData.results[0].zipcode}
+              </TableCell>
+              <TableCell>
+                {address}
+              </TableCell>
+              <TableCell>
+                {addressData.status}
+              </TableCell>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </main>
     </Layout>
   )
