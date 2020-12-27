@@ -1,18 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import Head from 'next/head'
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
 import DevApi, {ZipCloudJson} from "../lib/dev/api";
-import {GetStaticProps} from "next";
-import {Table, TableBody, TableCell, TableContainer, TableHead} from "@material-ui/core";
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TextField} from "@material-ui/core";
 
-interface Props {
-  addressData: ZipCloudJson
-}
+export default function Labo() {
+  const [zipcode, setZipcode] = useState('1234567')
+  const [address, setAddress] = useState('住所')
+  const [apiStatus, setApiStatus] = useState('0')
 
-export default function Labo({ addressData }: Props) {
-  const result = addressData.results[0]
-  const address = result.address1 + result.address2 + result.address3
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const postZipcode = event.target.zipcode.value
+    const res: ZipCloudJson = await DevApi.prototype.getAddressData(Number(postZipcode))
+    const addressData = res.results[0]
+    const address = addressData.address1 + addressData.address2 + addressData.address3
+    setZipcode(postZipcode)
+    setAddress(address)
+  }
 
   return (
     <Layout>
@@ -22,6 +29,23 @@ export default function Labo({ addressData }: Props) {
 
       <main className={utilStyles.main}>
         <h1>ラボ</h1>
+        <form onSubmit={submit}>
+          <TextField
+            // required
+            fullWidth
+            id="zipcode"
+            name="zipcode"
+            label="郵便番号"
+          />
+          <Button
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            住所取得
+          </Button>
+
+        </form>
         <TableContainer>
           <Table size="medium" aria-label="A address Table">
             <TableHead>
@@ -31,13 +55,13 @@ export default function Labo({ addressData }: Props) {
             </TableHead>
             <TableBody>
               <TableCell>
-                {addressData.results[0].zipcode}
+                {zipcode}
               </TableCell>
               <TableCell>
                 {address}
               </TableCell>
               <TableCell>
-                {addressData.status}
+                {apiStatus}
               </TableCell>
             </TableBody>
           </Table>
@@ -45,15 +69,4 @@ export default function Labo({ addressData }: Props) {
       </main>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const api = new DevApi()
-  const addressData: ZipCloudJson = await api.getAddressData(8900073)
-
-  return {
-    props: {
-      addressData
-    }
-  }
 }
