@@ -3,8 +3,24 @@ import Head from 'next/head'
 import Link from "next/link";
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
+import {ButtonBase, Card, CardContent, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  title: {
+    fontSize: 14,
+  },
+  cardAction: {
+    display: 'block',
+    textAlign: 'initial'
+  },
+});
 
 export default function Home() {
+  const classes = useStyles()
   return (
     <Layout home>
       <Head>
@@ -39,6 +55,22 @@ export default function Home() {
             <h3>Twitter &rarr;</h3>
             <p>日常系ツイート多め</p>
           </a>
+
+          <Card className={classes.root}>
+            <ButtonBase
+              className={classes.cardAction}
+              href={"/labo"}
+            >
+              <CardContent>
+                <Typography component="h2" className={classes.title}>
+                  Labo
+                </Typography>
+                <Typography component="p">
+                  開発中の色々
+                </Typography>
+              </CardContent>
+            </ButtonBase>
+          </Card>
         </div>
       </main>
     </Layout>
