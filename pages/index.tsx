@@ -8,10 +8,6 @@ import {NavigationCard} from "../components/NavigationCard";
 export default function Home() {
   return (
     <Layout home>
-      <Head>
-        <title>yoshikouki.net</title>
-      </Head>
-
       <main className={utilStyles.main}>
         <h1 className={utilStyles.title}>
           <a href="/">Yoshikouki.net</a>!!1

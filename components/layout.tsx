@@ -7,10 +7,12 @@ import Link from 'next/link'
 export const siteTitle = 'yoshikouki.net'
 
 export default function Layout({
+  title = 'yoshikouki.net',
   children,
   home
 }: {
-  children: React.ReactNode
+  title?: string
+  children?: React.ReactNode
   home?: boolean
 }) {
   return (
@@ -23,7 +25,7 @@ export default function Layout({
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
-        <title/>
+        <title>{title}</title>
       </Head>
       {!home && (
         <header className={styles.header}>

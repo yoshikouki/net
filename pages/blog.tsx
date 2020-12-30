@@ -5,11 +5,7 @@ import Layout from "../components/layout";
 
 export default function Blog() {
   return (
-    <Layout>
-      <Head>
-        <title>Blog | yoshikouki.net</title>
-      </Head>
-
+    <Layout title={'Blog | yoshikouki.net'}>
       <main className={utilStyles.main}>
       </main>
     </Layout>

@@ -25,11 +25,7 @@ export default function Labo() {
   }
 
   return (
-    <Layout>
-      <Head>
-        <title>Labo | yoshikouki.net</title>
-      </Head>
-
+    <Layout title={'Labo | yoshikouki.net'}>
       <main className={utilStyles.main}>
         <h1>ラボ</h1>
         <form onSubmit={submit}>
