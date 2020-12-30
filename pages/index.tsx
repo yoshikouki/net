@@ -3,24 +3,9 @@ import Head from 'next/head'
 import Link from "next/link";
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
-import {ButtonBase, Card, CardContent, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  title: {
-    fontSize: 14,
-  },
-  cardAction: {
-    display: 'block',
-    textAlign: 'initial'
-  },
-});
+import {NavigationCard} from "../components/NavigationCard";
 
 export default function Home() {
-  const classes = useStyles()
   return (
     <Layout home>
       <Head>
@@ -41,36 +26,23 @@ export default function Home() {
         </p>
 
         <div className={utilStyles.grid}>
-          <Link href={"/blog"}>
-            <a className={utilStyles.card}>
-              <h3>Blog &rarr;</h3>
-              <p>アウトプットまとめ</p>
-            </a>
-          </Link>
+          <NavigationCard
+            href={"/blog"}
+            title={"Blog"}
+            description={"アウトプットまとめ"}
+          />
 
-          <a
-            href="https://twitter.com/k2_yoshikouki"
-            className={utilStyles.card}
-          >
-            <h3>Twitter &rarr;</h3>
-            <p>日常系ツイート多め</p>
-          </a>
+          <NavigationCard
+            href={"https://twitter.com/k2_yoshikouki"}
+            title={"Twitter"}
+            description={"日常系ツイート多め"}
+          />
 
-          <Card className={classes.root}>
-            <ButtonBase
-              className={classes.cardAction}
-              href={"/labo"}
-            >
-              <CardContent>
-                <Typography component="h2" className={classes.title}>
-                  Labo
-                </Typography>
-                <Typography component="p">
-                  開発中の色々
-                </Typography>
-              </CardContent>
-            </ButtonBase>
-          </Card>
+          <NavigationCard
+            href={"/labo"}
+            title={"Labo"}
+            description={"開発中の色々"}
+          />
         </div>
       </main>
     </Layout>
