@@ -17,6 +17,23 @@ export interface ZipCloudJson {
   status: number
 }
 
+const errorZipCloudJson = {
+  message: null,
+  results: [
+    {
+      address1: "ErrorAddress1",
+      address2: "ErrorAddress2",
+      address3: "ErrorAddress3",
+      kana1: "ErrorKana1",
+      kana2: "ErrorKana2",
+      kana3: "ErrorKana3",
+      prefcode: "ErrorPrefcode",
+      zipcode: '0000000'
+    }
+  ],
+  status: 400
+}
+
 export default class DevApi {
   public getNotePosts() {
     const url = "https://note.com/api/v2/creators/yoshikouki/contents"
@@ -24,19 +41,22 @@ export default class DevApi {
     return this.requestGet(url, params)
   }
 
-  public getAddressData(zipcode: number) {
+public async getAddressData(zipcode: number) {
     const url = 'https://zipcloud.ibsnet.co.jp/api/search'
     const params = { zipcode : zipcode }
-    return this.requestGet(url, params)
+    const res = this.requestGet(url, params)
+    return await res ? res : errorZipCloudJson
   }
 
-  public requestGet(url: string, params?: {}) {
-    return Axios.get(url, { params : params })
+  public requestGet(url: string, paramsData?: {}) {
+    Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+    return Axios.get(url, { params : paramsData })
       .then((res: AxiosResponse) => {
         return res.data
       })
-      .catch(() => {
+      .catch((error) => {
         console.log("[ERROR] Axios get (DevApi#requestGet)")
+        console.log("message: ", error.message)
         return false
       })
   }

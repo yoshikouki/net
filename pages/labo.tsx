@@ -8,17 +8,20 @@ import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TextFiel
 export default function Labo() {
   const [zipcode, setZipcode] = useState('1234567')
   const [address, setAddress] = useState('住所')
-  const [apiStatus, setApiStatus] = useState('0')
+  const [apiStatus, setApiStatus] = useState(0)
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const postZipcode = event.target.zipcode.value
-    const res: ZipCloudJson = await DevApi.prototype.getAddressData(Number(postZipcode))
-    const addressData = res.results[0]
-    const address = addressData.address1 + addressData.address2 + addressData.address3
-    setZipcode(postZipcode)
+
+    const api = new DevApi()
+    const res: ZipCloudJson = await api.getAddressData(postZipcode)
+    console.log('res:', res)
+    const address = res.results[0].address1 + res.results[0].address2 + res.results[0].address3
+    setZipcode(res.results[0].zipcode)
     setAddress(address)
+    setApiStatus(res.status)
   }
 
   return (
@@ -49,20 +52,24 @@ export default function Labo() {
         <TableContainer>
           <Table size="medium" aria-label="A address Table">
             <TableHead>
-              <TableCell>郵便番号</TableCell>
-              <TableCell>住所</TableCell>
-              <TableCell>レスポンスステータス</TableCell>
+              <tr>
+                <TableCell>郵便番号</TableCell>
+                <TableCell>住所</TableCell>
+                <TableCell>レスポンスステータス</TableCell>
+              </tr>
             </TableHead>
             <TableBody>
-              <TableCell>
-                {zipcode}
-              </TableCell>
-              <TableCell>
-                {address}
-              </TableCell>
-              <TableCell>
-                {apiStatus}
-              </TableCell>
+              <tr>
+                <TableCell>
+                  {zipcode}
+                </TableCell>
+                <TableCell>
+                  {address}
+                </TableCell>
+                <TableCell>
+                  {apiStatus}
+                </TableCell>
+              </tr>
             </TableBody>
           </Table>
         </TableContainer>
