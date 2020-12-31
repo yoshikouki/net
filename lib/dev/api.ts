@@ -49,7 +49,6 @@ public async getAddressData(zipcode: number) {
   }
 
   public requestGet(url: string, paramsData?: {}) {
-    Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     return Axios.get(url, { params : paramsData })
       .then((res: AxiosResponse) => {
         return res.data
