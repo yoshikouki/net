@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Head from 'next/head'
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
 import DevApi, {ZipCloudJson} from "../lib/dev/api";

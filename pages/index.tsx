@@ -1,6 +1,4 @@
 import React from "react";
-import Head from 'next/head'
-import Link from "next/link";
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
 import {NavigationCard} from "../components/NavigationCard";
@@ -15,10 +13,6 @@ export default function Home() {
 
         <p className={utilStyles.description}>
           実験場
-        </p>
-
-        <p className={utilStyles.description}>
-          GitHub Actions は正常に稼働して自動でプロイされました!!1
         </p>
 
         <div className={utilStyles.grid}>
