@@ -4,6 +4,6 @@ describe('API クラスのテスト', () => {
   test('投稿したブログを取得する',  async() => {
     const api = new Api()
     const posts = await api.getBlogPosts()
-      expect(Api.ErrorGetBlogPosts).toBe(posts)
+    expect(posts).toBe(Api.ErrorGetBlogPosts)
   })
 })

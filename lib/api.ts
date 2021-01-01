@@ -25,7 +25,8 @@ export default class Api {
   public async getBlogPosts() {
     const url = "https://note.com/api/v2/creators/yoshikouki/contents"
     const params = { kind : "note" }
-    return Api.ErrorGetBlogPosts
+    const posts = await this.getTo(url, params)
+    return posts
   }
 
   public static ErrorGetBlogPosts: GetBlogPostsResponse = {
