@@ -36,7 +36,7 @@ const errorZipCloudJson = {
 
 export default class DevApi {
 
-public async getAddressData(zipcode: number) {
+  public async getAddressData(zipcode: number) {
     const url = 'https://zipcloud.ibsnet.co.jp/api/search'
     const params = { zipcode : zipcode }
     const res = this.requestGet(url, params)
