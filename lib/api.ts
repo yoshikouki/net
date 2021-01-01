@@ -1,5 +1,11 @@
 import Axios, {AxiosResponse} from "axios";
 
+export interface GetBlogPostsResponse {
+  posts: []
+  message: null | string
+  status: number
+}
+
 export default class Api {
   public constructor() {
   }
@@ -22,10 +28,10 @@ export default class Api {
     return Api.ErrorGetBlogPosts
   }
 
-  public static ErrorGetBlogPosts = {
     posts:[{
       title: 'テストの記事です'
     }],
+  public static ErrorGetBlogPosts: GetBlogPostsResponse = {
     message: '[ERROR] ブログ記事の取得に失敗しました。Api#getBlogPosts ',
     status: 404
   }
