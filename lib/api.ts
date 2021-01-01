@@ -28,10 +28,8 @@ export default class Api {
     return Api.ErrorGetBlogPosts
   }
 
-    posts:[{
-      title: 'テストの記事です'
-    }],
   public static ErrorGetBlogPosts: GetBlogPostsResponse = {
+    posts:[],
     message: '[ERROR] ブログ記事の取得に失敗しました。Api#getBlogPosts ',
     status: 404
   }
