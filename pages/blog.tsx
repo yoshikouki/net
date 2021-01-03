@@ -1,13 +1,26 @@
 import React from "react";
-import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
+import Api, {GetBlogPostsResponse} from "../lib/api";
+import {GetStaticProps} from "next";
 
-export default function Blog() {
+interface Props {
+  posts: GetBlogPostsResponse
+}
+
+export default function Blog({posts}: Props) {
+  console.debug(posts)
   return (
     <Layout title={'Blog | yoshikouki.net'}>
-      <main className={utilStyles.main}>
-
-      </main>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const api = new Api()
+  const posts = await api.getBlogPosts()
+  return {
+    props: {
+      posts: posts
+    }
+  }
 }
