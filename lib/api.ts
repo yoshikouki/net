@@ -1,4 +1,5 @@
 import Axios, {AxiosResponse} from "axios";
+import {string} from "prop-types";
 
 export interface GetBlogPostsResponse {
   posts: []
@@ -14,7 +15,8 @@ export interface BlogPostData {
 export default class Api {
   public async getBlogPosts() {
     const notePosts = await this.fetchNotePosts()
-    let posts = notePosts
+    const qiitaPosts = await this.fetchQiitaPosts()
+    const posts = notePosts.concat(qiitaPosts)
     return {
       posts: posts,
       message: null,
@@ -30,6 +32,18 @@ export default class Api {
       return {
         title: value.name,
         url: value.noteUrl
+      }
+    })
+  }
+
+  public async fetchQiitaPosts() {
+    const url = "https://qiita.com/api/v2/users/yoshikouki/items"
+    const params = { per_page : 20 }
+    const qiitaPosts = await this.getFrom(url, params)
+    return qiitaPosts.map((value: QiitaContent) => {
+      return {
+        title: value.title,
+        url: value.url
       }
     })
   }
@@ -50,6 +64,47 @@ export default class Api {
     message: '[ERROR] ブログ記事の取得に失敗しました。Api#getBlogPosts ',
     status: 404
   }
+}
+
+interface QiitaContent {
+  "rendered_body": string,
+  "body": string,
+  "coediting": boolean,
+  "comments_count": number,
+  "created_at":string,
+  "group": null,
+  "id": string,
+  "likes_count": number,
+  "private": boolean,
+  "reactions_count": number,
+  "tags": [
+    {
+      "name": string,
+      "versions": []
+    }
+  ],
+  "title": string,
+  "updated_at": string,
+  "url": string,
+  "user": {
+    "description": string,
+    "facebook_id": string,
+    "followees_count": number,
+    "followers_count": number,
+    "github_login_name": string,
+    "id": string,
+    "items_count": number,
+    "linkedin_id": string,
+    "location": string,
+    "name": string,
+    "organization": string,
+    "permanent_id": number,
+    "profile_image_url": string,
+    "team_only": boolean,
+    "twitter_screen_name": string,
+    "website_url": string
+  },
+  "page_views_count": null
 }
 
 interface NoteApiResponse {
