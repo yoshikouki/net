@@ -6,6 +6,11 @@ export interface GetBlogPostsResponse {
   status: number
 }
 
+export interface BlogPostData {
+  title: string
+  url: string
+}
+
 export default class Api {
   public async getBlogPosts() {
     const notePosts = await this.fetchNotePosts()
