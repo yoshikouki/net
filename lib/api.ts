@@ -11,7 +11,7 @@ export interface BlogPostData {
   title: string
   url: string
   likes: number
-  createdAt: string
+  date: string
   tags: string[]
   service: string
 }
@@ -33,14 +33,14 @@ export default class Api {
     const params = { kind : "note" }
     const notePosts: NoteApiResponse = await this.getFrom(url, params)
     return notePosts.data.contents.map((value: NoteContent) => {
-      const createdAt = this.convertDateToString(value.publishAt)
+      const date = this.convertDateToString(value.publishAt)
       const tags = value.hashtags.map((tag) => { return tag.hashtag.name.slice(1) })
 
       return {
         title: value.name,
         url: value.noteUrl,
         likes: value.likeCount,
-        createdAt: createdAt,
+        date: date,
         tags: tags,
         service: "note"
       }
@@ -52,14 +52,14 @@ export default class Api {
     const params = { per_page : 20 }
     const qiitaPosts = await this.getFrom(url, params)
     return qiitaPosts.map((value: QiitaContent) => {
-      const createdAt = this.convertDateToString(value.created_at)
+      const date = this.convertDateToString(value.created_at)
       const tags = value.tags.map((tag) => { return tag.name })
 
       return {
         title: value.title,
         url: value.url,
         likes: value.likes_count,
-        createdAt: createdAt,
+        date: date,
         tags: tags,
         service: "Qiita"
       }
