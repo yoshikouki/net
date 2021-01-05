@@ -34,7 +34,7 @@ export default class Api {
     const notePosts: NoteApiResponse = await this.getFrom(url, params)
     return notePosts.data.contents.map((value: NoteContent) => {
       const createdAt = this.convertDateToString(value.publishAt)
-      const tags = value.hashtags.map((tag) => { return tag.hashtag.name })
+      const tags = value.hashtags.map((tag) => { return tag.hashtag.name.slice(1) })
 
       return {
         title: value.name,
