@@ -1,6 +1,6 @@
 import React from "react";
 import {BlogPostData, GetBlogPostsResponse} from "../lib/api";
-import {ColDef, DataGrid, RowsProp} from "@material-ui/data-grid";
+import {ColDef, DataGrid, RowsProp, SortModel} from "@material-ui/data-grid";
 import {useRouter} from "next/router";
 
 interface Props {
@@ -28,12 +28,19 @@ export const PostList = ({posts}: Props) => {
     { field: 'likes', headerName: 'Like', width: 100 },
     { field: 'tags', headerName: 'タグ', width: 300 },
   ]
+  const sortModel: SortModel = [
+    {
+      field: 'date',
+      sort: 'desc',
+    },
+  ]
 
   return (
     <div style={{ height: 1000, width: 800 }}>
       <DataGrid
         columns={columns}
         rows={rows}
+        sortModel={sortModel}
         onRowClick={async (param) => {
           await router.push(rows[param.rowIndex].url)
         }}
