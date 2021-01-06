@@ -33,7 +33,7 @@ export default class Api {
     const params = { kind : "note" }
     const notePosts: NoteApiResponse = await this.getFrom(url, params)
     return notePosts.data.contents.map((value: NoteContent) => {
-      const date = this.convertDateToString(value.publishAt)
+      const date = new Date(value.publishAt).getTime()
       const tags = value.hashtags.map((tag) => { return tag.hashtag.name.slice(1) })
 
       return {
@@ -52,7 +52,7 @@ export default class Api {
     const params = { per_page : 20 }
     const qiitaPosts = await this.getFrom(url, params)
     return qiitaPosts.map((value: QiitaContent) => {
-      const date = this.convertDateToString(value.created_at)
+      const date = new Date(value.created_at).getTime()
       const tags = value.tags.map((tag) => { return tag.name })
 
       return {
@@ -82,9 +82,9 @@ export default class Api {
     message: '[ERROR] ブログ記事の取得に失敗しました。Api#getBlogPosts ',
     status: 404
   }
-
-  private convertDateToString(dateString: string) {
-    const date = new Date(dateString)
+  
+  public static convertDateToString(time: string) {
+    const date = new Date(time)
     return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
   }
 }

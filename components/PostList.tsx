@@ -1,6 +1,6 @@
 import React from "react";
-import {BlogPostData, GetBlogPostsResponse} from "../lib/api";
-import {ColDef, DataGrid, RowsProp, SortModel} from "@material-ui/data-grid";
+import Api, {BlogPostData, GetBlogPostsResponse} from "../lib/api";
+import {ColDef, DataGrid, RowsProp, SortModel, ValueFormatterParams} from "@material-ui/data-grid";
 import {useRouter} from "next/router";
 
 interface Props {
@@ -21,9 +21,14 @@ export const PostList = ({posts}: Props) => {
     }
   })
   const columns: ColDef[] = [
+    {
+      field: 'date',
+      headerName: '日付',
+      width: 150,
+      valueFormatter: (params: ValueFormatterParams) => Api.convertDateToString(params.value as string)
+    },
     { field: 'id', headerName: 'ID', hide: true },
     { field: 'title', headerName: 'タイトル', width: 300 },
-    { field: 'date', headerName: '日付', width: 150 },
     { field: 'service', headerName: 'SNS', width: 100 },
     { field: 'likes', headerName: 'Like', width: 100 },
     { field: 'tags', headerName: 'タグ', width: 300 },
