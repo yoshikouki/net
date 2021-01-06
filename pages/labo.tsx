@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
-import DevApi, {ZipCloudJson} from "../lib/dev/api";
+import LaboApi, {ZipCloudJson} from "../lib/labo/api";
 import {Button, Link, Table, TableBody, TableCell, TableContainer, TableHead, TextField} from "@material-ui/core";
 
 export default function Labo() {
@@ -14,7 +14,7 @@ export default function Labo() {
 
     const postZipcode = event.target.zipcode.value
 
-    const api = new DevApi()
+    const api = new LaboApi()
     const res: ZipCloudJson = await api.getAddressData(postZipcode)
     console.log('res:', res)
     const address = res.results[0].address1 + res.results[0].address2 + res.results[0].address3
