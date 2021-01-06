@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/layout";
-import Api, {GetBlogPostsResponse} from "../../lib/api";
+import LaboApi, {GetBlogPostsResponse} from "../../lib/labo/api";
 import {GetStaticProps} from "next";
 import {LaboPostList} from "../../components/labo/PostList";
 
@@ -17,7 +17,7 @@ export default function LaboBlog({posts}: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const api = new Api()
+  const api = new LaboApi()
   const posts = await api.getBlogPosts()
   return {
     props: {

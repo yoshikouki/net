@@ -1,5 +1,5 @@
 import React from "react";
-import Api, {BlogPostData, GetBlogPostsResponse} from "../../lib/api";
+import LaboApi, {BlogPostData, GetBlogPostsResponse} from "../../lib/labo/api";
 import {ColDef, DataGrid, RowsProp, SortModel, ValueFormatterParams} from "@material-ui/data-grid";
 import {useRouter} from "next/router";
 
@@ -25,7 +25,7 @@ export const LaboPostList = ({posts}: Props) => {
       field: 'date',
       headerName: '日付',
       width: 150,
-      valueFormatter: (params: ValueFormatterParams) => Api.convertDateToString(params.value as string)
+      valueFormatter: (params: ValueFormatterParams) => LaboApi.convertDateToString(params.value as string)
     },
     { field: 'id', headerName: 'ID', hide: true },
     { field: 'title', headerName: 'タイトル', width: 300 },
