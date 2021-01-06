@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import utilStyles from '../styles/utils.module.scss'
 import Layout from "../components/layout";
 import DevApi, {ZipCloudJson} from "../lib/dev/api";
-import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TextField} from "@material-ui/core";
+import {Button, Link, Table, TableBody, TableCell, TableContainer, TableHead, TextField} from "@material-ui/core";
 
 export default function Labo() {
   const [zipcode, setZipcode] = useState('1234567')
@@ -27,6 +27,9 @@ export default function Labo() {
     <Layout title={'Labo | yoshikouki.net'}>
       <main className={utilStyles.main}>
         <h1>ラボ</h1>
+        <Link>
+          <a href="/labo/blog">Blog with API</a>
+        </Link>
         <form onSubmit={submit}>
           <TextField
             // required

@@ -1,5 +1,4 @@
 import Axios, {AxiosResponse} from "axios";
-import {string} from "prop-types";
 
 export interface GetBlogPostsResponse {
   posts: []
