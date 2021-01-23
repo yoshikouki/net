@@ -8,14 +8,23 @@ const ParserCustomField = {
 
 export default class Api {
   public async getBlogPosts() {
-    const url = 'https://note.com/yoshikouki/rss'
-    const parser = new Parser(ParserCustomField)
-    const feed = await parser.parseURL(url)
-    const items = feed.items.map((item) => {
+    const noteItems = await this.getNoteItems()
+    const qiitaItems = await this.getQiitaItems()
+    const items = noteItems.concat(qiitaItems)
+    return {
+      posts: items,
+      message: null,
+      status: 200
+    }
+  }
+
+  public async getNoteItems() {
+    const feed = await this.fetchRssFeed('https://note.com/yoshikouki/rss')
+    return feed.items.map((item) => {
       let itemTitle = String(item.title)
       let itemUrl = String(item.link)
       let itemDate = new Date(String(item.pubDate)).getTime()
-      const post: Post = {
+      let post: Post = {
         title: itemTitle,
         url: itemUrl,
         date: itemDate,
@@ -23,11 +32,27 @@ export default class Api {
       }
       return post
     })
-    return {
-      posts: items,
-      message: null,
-      status: 200
-    }
+  }
+
+  public async getQiitaItems() {
+    const feed = await this.fetchRssFeed('https://qiita.com/yoshikouki/feed.atom')
+    return feed.items.map((item) => {
+      let itemTitle = String(item.title)
+      let itemUrl = String(item.link)
+      let itemDate = new Date(String(item.last)).getTime()
+      let post: Post = {
+        title: itemTitle,
+        url: itemUrl,
+        date: itemDate,
+        service: 'qiita',
+      }
+      return post
+    })
+  }
+
+  public async fetchRssFeed(url = "") {
+    const parser = new Parser(ParserCustomField)
+    return await parser.parseURL(url)
   }
 
   public static convertDateToString(time: string) {
