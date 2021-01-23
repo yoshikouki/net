@@ -1,6 +1,12 @@
 import Parser from "rss-parser";
 
-export interface FeedItem {
+export interface BlogPosts {
+  message: null,
+  results: Post[],
+  status: number
+}
+
+export interface Post {
   title: string
   url: string
   date: number
@@ -21,13 +27,14 @@ export default class Api {
       let itemTitle = String(item.title)
       let itemUrl = String(item.link)
       let itemDate = new Date(String(item.pubDate)).getTime()
-      const feedItem: FeedItem = {
+      let itemDescription = String(item.description)
+      const post: Post = {
         title: itemTitle,
         url: itemUrl,
         date: itemDate,
         service: 'note',
       }
-      return feedItem
+      return post
     })
     const posts = {
       posts: items,

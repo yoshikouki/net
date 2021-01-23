@@ -1,15 +1,15 @@
 import React from "react";
-import Api, {BlogPostData, GetBlogPostsResponse} from "../lib/api";
+import Api, {BlogPosts, Post} from "../lib/api";
 import {ColDef, DataGrid, RowsProp, SortModel, ValueFormatterParams} from "@material-ui/data-grid";
 import {useRouter} from "next/router";
 
 interface Props {
-  posts: GetBlogPostsResponse
+  posts: BlogPosts
 }
 
 export const PostList = ({posts}: Props) => {
   const router = useRouter()
-  const rows: RowsProp = posts.posts.map((post: BlogPostData) => {
+  const rows: RowsProp = posts.posts.map((post: Post) => {
     return {
       id: post.title,
       title: post.title,
