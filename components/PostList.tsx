@@ -16,7 +16,6 @@ export const PostList = ({posts}: Props) => {
       url: post.url,
       date: post.date,
       service: post.service,
-      description: post.description,
     }
   })
   const columns: ColDef[] = [
@@ -29,7 +28,6 @@ export const PostList = ({posts}: Props) => {
     { field: 'id', headerName: 'ID', hide: true },
     { field: 'title', headerName: 'タイトル', width: 300 },
     { field: 'service', headerName: 'SNS', width: 100 },
-    { field: 'description', headerName: '概要', width: 100 },
   ]
   const sortModel: SortModel = [
     {

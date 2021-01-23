@@ -28,13 +28,11 @@ export default class Api {
       let itemTitle = String(item.title)
       let itemUrl = String(item.link)
       let itemDate = new Date(String(item.pubDate)).getTime()
-      let itemDescription = String(item.description)
       const post: Post = {
         title: itemTitle,
         url: itemUrl,
         date: itemDate,
         service: 'note',
-        description: itemDescription,
       }
       return post
     })
