@@ -1,18 +1,5 @@
 import Parser from "rss-parser";
-
-export interface BlogPosts {
-  message: null,
-  posts: Post[],
-  status: number
-}
-
-export interface Post {
-  title: string
-  url: string
-  date: number
-  service: string
-  description: string
-}
+import {Post} from "blog";
 
 const ParserCustomField = {
   customFields: {
@@ -36,12 +23,11 @@ export default class Api {
       }
       return post
     })
-    const posts = {
+    return {
       posts: items,
       message: null,
       status: 200
     }
-    return posts
   }
 
   public static convertDateToString(time: string) {

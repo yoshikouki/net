@@ -1,7 +1,8 @@
 import React from "react";
-import Api, {BlogPosts, Post} from "../lib/api";
+import Api from "../lib/api";
 import {ColDef, DataGrid, RowsProp, SortModel, ValueFormatterParams} from "@material-ui/data-grid";
 import {useRouter} from "next/router";
+import {BlogPosts, Post} from "blog";
 
 interface Props {
   posts: BlogPosts
