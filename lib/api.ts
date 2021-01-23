@@ -2,7 +2,7 @@ import Parser from "rss-parser";
 
 export interface BlogPosts {
   message: null,
-  results: Post[],
+  posts: Post[],
   status: number
 }
 
@@ -11,6 +11,7 @@ export interface Post {
   url: string
   date: number
   service: string
+  description: string
 }
 
 const ParserCustomField = {
@@ -33,6 +34,7 @@ export default class Api {
         url: itemUrl,
         date: itemDate,
         service: 'note',
+        description: itemDescription,
       }
       return post
     })

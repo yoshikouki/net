@@ -14,10 +14,9 @@ export const PostList = ({posts}: Props) => {
       id: post.title,
       title: post.title,
       url: post.url,
-      likes: post.likes,
       date: post.date,
-      tags: post.tags,
-      service: post.service
+      service: post.service,
+      description: post.description,
     }
   })
   const columns: ColDef[] = [
@@ -30,8 +29,7 @@ export const PostList = ({posts}: Props) => {
     { field: 'id', headerName: 'ID', hide: true },
     { field: 'title', headerName: 'タイトル', width: 300 },
     { field: 'service', headerName: 'SNS', width: 100 },
-    { field: 'likes', headerName: 'Like', width: 100 },
-    { field: 'tags', headerName: 'タグ', width: 300 },
+    { field: 'description', headerName: '概要', width: 100 },
   ]
   const sortModel: SortModel = [
     {
