@@ -39,12 +39,12 @@ export default class Api {
     return feed.items.map((item) => {
       let itemTitle = String(item.title)
       let itemUrl = String(item.link)
-      let itemDate = new Date(String(item.last)).getTime()
+      let itemDate = new Date(String(item.pubDate)).getTime()
       let post: Post = {
         title: itemTitle,
         url: itemUrl,
         date: itemDate,
-        service: 'qiita',
+        service: 'Qiita',
       }
       return post
     })
