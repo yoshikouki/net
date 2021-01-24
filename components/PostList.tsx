@@ -30,6 +30,12 @@ export const PostList = ({posts}: Props) => {
     posts.posts.map((post: Post) => {
       let postDate = Api.convertDateToString(post.date)
       let postDescription = post.description ? post.description.replace(tagRegExp, ' ') : ''
+      if (post.service == 'note') {
+        postDescription = postDescription.replace(/続きをみる $/, "")
+      }
+      if (postDescription.length > 100) {
+        postDescription = postDescription.slice(0,100) + "..."
+      }
 
       return (
         <Card className={classes.cardRoot}>
