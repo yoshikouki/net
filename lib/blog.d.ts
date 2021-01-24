@@ -10,6 +10,7 @@ declare module 'blog' {
     url: string
     date: number
     service: string
+    description: string
   }
 
   interface NoteFeed {

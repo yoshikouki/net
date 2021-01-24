@@ -4,6 +4,7 @@ import {BlogPosts, Post} from "blog";
 import {Card, CardActionArea, CardContent, Chip, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import {useRouter} from "next/router";
+import {decodeHTML} from "entities";
 
 interface Props {
   posts: BlogPosts
@@ -39,6 +40,9 @@ export const PostList = ({posts}: Props) => {
               {post.title}
             </Typography>
             <Chip label={post.service} />
+            <Typography component={'p'} variant={'body2'} className={classes.cardTitle}>
+              {post.description}
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
