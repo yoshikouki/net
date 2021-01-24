@@ -55,7 +55,7 @@ export default class Api {
     return await parser.parseURL(url)
   }
 
-  public static convertDateToString(time: string) {
+  public static convertDateToString(time: number) {
     const date = new Date(time)
     return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
   }

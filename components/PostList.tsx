@@ -1,52 +1,50 @@
 import React from "react";
 import Api from "../lib/api";
-import {ColDef, DataGrid, RowsProp, SortModel, ValueFormatterParams} from "@material-ui/data-grid";
-import {useRouter} from "next/router";
 import {BlogPosts, Post} from "blog";
+import {Card, CardActionArea, CardContent, Chip, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {useRouter} from "next/router";
 
 interface Props {
   posts: BlogPosts
 }
 
-export const PostList = ({posts}: Props) => {
-  const router = useRouter()
-  const rows: RowsProp = posts.posts.map((post: Post) => {
-    return {
-      id: post.title,
-      title: post.title,
-      url: post.url,
-      date: post.date,
-      service: post.service,
-    }
-  })
-  const columns: ColDef[] = [
-    {
-      field: 'date',
-      headerName: '日付',
-      width: 150,
-      valueFormatter: (params: ValueFormatterParams) => Api.convertDateToString(params.value as string)
-    },
-    { field: 'id', headerName: 'ID', hide: true },
-    { field: 'title', headerName: 'タイトル', width: 300 },
-    { field: 'service', headerName: 'SNS', width: 100 },
-  ]
-  const sortModel: SortModel = [
-    {
-      field: 'date',
-      sort: 'desc',
-    },
-  ]
+const useStyles = makeStyles({
+  cardRoot: {
+    minWidth: 275,
+    margin: '0 0 40px',
+    padding: '12px 0'
+  },
+  cardTitle: {
+    margin: '8px 0'
+  }
+})
 
+export const PostList = ({posts}: Props) => {
+  const classes = useStyles()
+  const router = useRouter()
+
+  const cards = posts.posts.map((post: Post) => {
+    let postDate = Api.convertDateToString(post.date)
+    return (
+      <Card className={classes.cardRoot}>
+        <CardActionArea onClick={async () => {
+          await router.push(post.url)
+        }}>
+          <CardContent>
+            <Typography component={'p'} variant={'caption'}>
+              {postDate}
+            </Typography>
+            <Typography component={'h2'} variant={'h6'} className={classes.cardTitle}>
+              {post.title}
+            </Typography>
+            <Chip label={post.service} />
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    )
+  })
   return (
-    <div style={{ height: 1000, width: 800 }}>
-      <DataGrid
-        columns={columns}
-        rows={rows}
-        sortModel={sortModel}
-        onRowClick={async (param) => {
-          await router.push(rows[param.rowIndex].url)
-        }}
-      />
-    </div>
+    cards
   )
 }
