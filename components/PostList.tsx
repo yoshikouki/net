@@ -24,9 +24,12 @@ const useStyles = makeStyles({
 export const PostList = ({posts}: Props) => {
   const classes = useStyles()
   const router = useRouter()
+  const tagRegExp = /<(".*?"|'.*?'|[^'"])*?>/g
 
   const cards = posts.posts.map((post: Post) => {
     let postDate = Api.convertDateToString(post.date)
+    let postDescription = post.description ? post.description.replace(tagRegExp, ' ') : ''
+
     return (
       <Card className={classes.cardRoot}>
         <CardActionArea onClick={async () => {
@@ -41,7 +44,7 @@ export const PostList = ({posts}: Props) => {
             </Typography>
             <Chip label={post.service} />
             <Typography component={'p'} variant={'body2'} className={classes.cardTitle}>
-              <span dangerouslySetInnerHTML={{__html: post.description}} />
+              {postDescription}
             </Typography>
           </CardContent>
         </CardActionArea>
