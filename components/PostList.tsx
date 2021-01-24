@@ -26,32 +26,31 @@ export const PostList = ({posts}: Props) => {
   const router = useRouter()
   const tagRegExp = /<(".*?"|'.*?'|[^'"])*?>/g
 
-  const cards = posts.posts.map((post: Post) => {
-    let postDate = Api.convertDateToString(post.date)
-    let postDescription = post.description ? post.description.replace(tagRegExp, ' ') : ''
-
-    return (
-      <Card className={classes.cardRoot}>
-        <CardActionArea onClick={async () => {
-          await router.push(post.url)
-        }}>
-          <CardContent>
-            <Typography component={'p'} variant={'caption'}>
-              {postDate}
-            </Typography>
-            <Typography component={'h2'} variant={'h6'} className={classes.cardTitle}>
-              {post.title}
-            </Typography>
-            <Chip label={post.service} />
-            <Typography component={'p'} variant={'body2'} className={classes.cardTitle}>
-              {postDescription}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    )
-  })
   return (
-    cards
+    posts.posts.map((post: Post) => {
+      let postDate = Api.convertDateToString(post.date)
+      let postDescription = post.description ? post.description.replace(tagRegExp, ' ') : ''
+
+      return (
+        <Card className={classes.cardRoot}>
+          <CardActionArea onClick={async () => {
+            await router.push(post.url)
+          }}>
+            <CardContent>
+              <Typography component={'p'} variant={'caption'}>
+                {postDate}
+              </Typography>
+              <Typography component={'h2'} variant={'h6'} className={classes.cardTitle}>
+                {post.title}
+              </Typography>
+              <Chip label={post.service} />
+              <Typography component={'p'} variant={'body2'} className={classes.cardTitle}>
+                {postDescription}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      )
+    })
   )
 }
