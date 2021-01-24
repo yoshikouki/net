@@ -41,7 +41,7 @@ export const PostList = ({posts}: Props) => {
             </Typography>
             <Chip label={post.service} />
             <Typography component={'p'} variant={'body2'} className={classes.cardTitle}>
-              {post.description}
+              <span dangerouslySetInnerHTML={{__html: post.description}} />
             </Typography>
           </CardContent>
         </CardActionArea>
