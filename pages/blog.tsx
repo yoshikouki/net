@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "../components/layout";
-import Api, {GetBlogPostsResponse} from "../lib/api";
+import Api from "../lib/api";
 import {GetStaticProps} from "next";
 import {PostList} from "../components/PostList";
+import {BlogPosts} from "blog";
 
 interface Props {
-  posts: GetBlogPostsResponse
+  posts: BlogPosts
 }
 
 export default function Blog({posts}: Props) {
