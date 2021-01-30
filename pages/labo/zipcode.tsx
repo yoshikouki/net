@@ -12,7 +12,7 @@ export default function LaboZipcode() {
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const postZipcode = event.target.zipcode.value
+    const postZipcode = Number(event.target)
 
     const api = new LaboApi()
     const res: ZipCloudJson = await api.getAddressData(postZipcode)
